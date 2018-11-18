@@ -22,8 +22,13 @@ app.use((req, res, next) => {
 const productsRoute = require('./api/routes/products');
 const appointmentsRoute = require('./api/routes/appointments');
 
+// //database
+// mongoose.connect('mongodb://dental-user:'+ process.env.MONGO_ATLAS_PW +'@cluster0-shard-00-00-gsvla.mongodb.net:27017,cluster0-shard-00-01-gsvla.mongodb.net:27017,cluster0-shard-00-02-gsvla.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true',{
+//     useMongoClient:true
+// });
+
 //database
-mongoose.connect('mongodb://dental-user:'+ process.env.MONGO_ATLAS_PW +'@cluster0-shard-00-00-gsvla.mongodb.net:27017,cluster0-shard-00-01-gsvla.mongodb.net:27017,cluster0-shard-00-02-gsvla.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true',{
+mongoose.connect('mongodb://dental-dbuser:dental-dbuser@dental-services-cluster-shard-00-00-n5rpg.mongodb.net:27017,dental-services-cluster-shard-00-01-n5rpg.mongodb.net:27017,dental-services-cluster-shard-00-02-n5rpg.mongodb.net:27017/test?ssl=true&replicaSet=dental-services-cluster-shard-0&authSource=admin&retryWrites=true',{
     useMongoClient:true
 });
 
