@@ -10,6 +10,17 @@ routes.get('/', (req, res, next) => {
     });
 });
 
+routes.get('/List', function(req, res) {
+    Product.find({}, function(err, products) {
+      var productMap = {};
+  
+      products.forEach(function(product) {
+        productMap[product._id] = product;
+      });  
+      res.send(productMap);  
+    });
+  });
+
 routes.get('/:productId', (req, res, next) => {
     const id = req.params.productId;
     Product.findById(id)
@@ -29,6 +40,7 @@ routes.post('/', (req, res, next) => {
     const product = new Product({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
+        description:req.body.description,
         price: req.body.price
     });
 
