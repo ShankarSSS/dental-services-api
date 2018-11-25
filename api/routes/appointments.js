@@ -32,7 +32,7 @@ routes.post('/', (req, res, next) => {
     });   
 
 
-    product.save()
+    appointment.save()
         .then(result => {
             console.log(result);
         })
