@@ -2,13 +2,19 @@ const express = require('express');
 const routes = express.Router();
 const Appointment = require('../models/appointment');
 const mongoose = require('mongoose');
+const Appointment = require('../models/appointment');
 
 
-routes.get('/', (req, res, next) => {
-    res.status(200).json({
-        'Message': '/appointment handled in get'
+
+routes.get('/List', function(req, res) {
+    Appointment.find({}, function(err, appointments) {
+      var appointmentMap = {};  
+      appointments.forEach(function(appointment) {
+        appointmentMap[appointment._id] = appointment;
+      });  
+      res.send(appointmentMap);  
     });
-});
+  });
 
 routes.get('/:appointmentId', (req, res, next) => {
     const id=req.params.appointmentId;
