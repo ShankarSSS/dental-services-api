@@ -1,8 +1,8 @@
 const express = require('express');
 const routes = express.Router();
-const Appointment = require('../models/appointment');
 const mongoose = require('mongoose');
 const Appointment = require('../models/appointment');
+
 
 
 
