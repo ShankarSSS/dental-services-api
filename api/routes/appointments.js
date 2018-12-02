@@ -25,10 +25,10 @@ routes.get('/:appointmentId', (req, res, next) => {
 
 routes.post('/', (req, res, next) => {   
 try{
-    var appointment_date = new Date(req.body.appointment_date);
-    var appointment_start_date = new Date(req.body.appointment_date);
-    var appointment_end_date = new Date(req.body.appointment_date);
-    var created_date = new Date(req.body.appointment_date);
+    // var appointment_date = new Date(req.body.appointment_date);
+    // var appointment_start_date = new Date(req.body.appointment_date);
+    // var appointment_end_date = new Date(req.body.appointment_date);
+    // var created_date = new Date(req.body.appointment_date);
 
 
     const appointment = new Appointment({
@@ -37,26 +37,46 @@ try{
         mobile: req.body.mobile,
         email: req.body.email,
         source: req.body.source,
-        appointment_date:appointment_date,
-        appointment_start_date: appointment_start_date,
-        appointment_end_date:appointment_end_date,
-        created_date:created_date,
+        appointment_date:req.body.appointment_date,
+        appointment_start_date: req.body.appointment_start_date,
+        appointment_end_date:req.body.appointment_end_date,
+        created_date:req.body.created_date,
         created_by: req.body.created_by       
     });   
 
 
-    appointment.save()
+Appointment.find({appointment_start_date: appointment_start_date})
+.exec()
+.then(doc => {
+    console.log(doc);
+    if(doc.length > 0)
+    {
+        //409 Conflict
+        res.status(409).json({Message:'Already Booked'});
+    }
+    else{
+        appointment.save()
         .then(result => {
-            console.log(result);
+            //console.log(result);
+            res.status(200).json({Message:'Success'});
         })
-        .catch(err => console.log(err));
-
-    res.status(200).json({
-        'Message': '/appointment shankar handled in post',
-        appointment: appointment
-    });
+        .catch(err =>{
+           // console.log(err)
+           res.status(500).json({ error: err });
+        }
+        );    
+    }
+    //res.status(200).json(doc);
+})
+.catch(err => {
+    console.log(err);
+    res.status(500).json({ error: err });
+});
+  
 }
-catch(err){    
+catch(err){ 
+    console.log('4');   
+    console.log(err);
     res.status(500).json({
         'Message': err
     });
