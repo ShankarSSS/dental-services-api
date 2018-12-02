@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "author": "Shankarnath",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "event-stream": "^3.3.4",
     "express": "^4.16.4",
     "mongoose": "^5.3.11",
     "morgan": "^1.9.1"
