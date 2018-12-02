@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const Appointment = require('../models/appointment');
 
 
-
+const timeZone = 'Asia/Calcutta';  // Change it to your time zone
+const timeZoneOffset = '+05:30';  
 
 routes.get('/List', function(req, res) {
     Appointment.find({}, function(err, appointments) {
@@ -26,7 +27,7 @@ routes.get('/:appointmentId', (req, res, next) => {
 routes.post('/', (req, res, next) => {   
 try{
     // var appointment_date = new Date(req.body.appointment_date);
-    // var appointment_start_date = new Date(req.body.appointment_date);
+     var appointment_start_date_Converted = new Date(req.body.appointment_date);
     // var appointment_end_date = new Date(req.body.appointment_date);
     // var created_date = new Date(req.body.appointment_date);
 
@@ -38,7 +39,7 @@ try{
         email: req.body.email,
         source: req.body.source,
         appointment_date:req.body.appointment_date,
-        appointment_start_date: req.body.appointment_start_date,
+        appointment_start_date: appointment_start_date_Converted,
         appointment_end_date:req.body.appointment_end_date,
         created_date:req.body.created_date,
         created_by: req.body.created_by       
@@ -46,6 +47,8 @@ try{
 
     console.log('-----------------------------------')
     console.log(appointment);
+    console.log('-----------------------------------')
+    console.log(appointment_start_date_Converted);
     console.log('-----------------------------------')
 Appointment.find({appointment_start_date: req.body.appointment_start_date})
 .exec()
@@ -100,5 +103,9 @@ routes.delete('/:appointmentId', (req, res, next) => {
     });
 });
 
+// A helper function that receives Dialogflow's 'date' and 'time' parameters and creates a Date instance.
+function convertParametersDate(date, time){
+    return new Date(Date.parse(date.split('T')[0] + 'T' + time.split('T')[1].split('+')[0] + timeZoneOffset));
+  }
 
 module.exports=routes;
