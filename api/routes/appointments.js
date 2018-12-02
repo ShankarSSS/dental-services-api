@@ -30,7 +30,7 @@ try{
     // var appointment_end_date = new Date(req.body.appointment_date);
     // var created_date = new Date(req.body.appointment_date);
 
-
+    console.log(req.body.appointment_start_date);
     const appointment = new Appointment({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
