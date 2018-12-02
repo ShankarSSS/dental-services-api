@@ -28,6 +28,7 @@ routes.post('/', (req, res, next) => {
 try{
     // var appointment_date = new Date(req.body.appointment_date);
      var appointment_start_date_Converted = new Date(req.body.appointment_start_date);
+     var currentDateConverted  = new Date(req.body.created_date);
     // var appointment_end_date = new Date(req.body.appointment_date);
     // var created_date = new Date(req.body.appointment_date);
 
@@ -46,16 +47,18 @@ try{
     });   
 
     console.log('-----------------------------------')
-    console.log(appointment);
+    console.log('Current : '+ currentDateConverted);
     console.log('-----------------------------------')
     console.log('Time Converted : '+appointment_start_date_Converted);
     console.log('-----------------------------------')
 Appointment.find({appointment_start_date: req.body.appointment_start_date})
 .exec()
 .then(doc => {
-    console.log(doc);
+    
     if(doc.length > 0)
     {
+        console.log('----------------Exist-------------------')
+        console.log(doc);
         //409 Conflict
         res.status(409).json({Message:'Already Booked'});
     }
