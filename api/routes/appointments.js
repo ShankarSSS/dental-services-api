@@ -45,7 +45,7 @@ try{
     });   
 
 
-Appointment.find({appointment_start_date: appointment_start_date})
+Appointment.find({appointment_start_date: req.body.appointment_start_date})
 .exec()
 .then(doc => {
     console.log(doc);
