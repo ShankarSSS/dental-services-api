@@ -27,7 +27,7 @@ routes.get('/:appointmentId', (req, res, next) => {
 routes.post('/', (req, res, next) => {   
 try{
     // var appointment_date = new Date(req.body.appointment_date);
-     var appointment_start_date_Converted = new Date(req.body.appointment_date);
+     var appointment_start_date_Converted = new Date(req.body.appointment_start_date);
     // var appointment_end_date = new Date(req.body.appointment_date);
     // var created_date = new Date(req.body.appointment_date);
 
@@ -48,7 +48,7 @@ try{
     console.log('-----------------------------------')
     console.log(appointment);
     console.log('-----------------------------------')
-    console.log(appointment_start_date_Converted);
+    console.log('Time Converted : '+appointment_start_date_Converted);
     console.log('-----------------------------------')
 Appointment.find({appointment_start_date: req.body.appointment_start_date})
 .exec()
