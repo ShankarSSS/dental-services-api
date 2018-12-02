@@ -30,7 +30,7 @@ try{
     // var appointment_end_date = new Date(req.body.appointment_date);
     // var created_date = new Date(req.body.appointment_date);
 
-    console.log(req.body.appointment_start_date);
+    
     const appointment = new Appointment({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
@@ -44,7 +44,9 @@ try{
         created_by: req.body.created_by       
     });   
 
-
+    console.log('-----------------------------------')
+    console.log(appointment);
+    console.log('-----------------------------------')
 Appointment.find({appointment_start_date: req.body.appointment_start_date})
 .exec()
 .then(doc => {
